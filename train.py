@@ -44,4 +44,11 @@ print("  RMSE: %s" % rmse)
 print("  MAE: %s" % mae)
 print("  R2: %s" % r2)
 
+import shap 
 
+explainer=shap.Explainer(lr.predict,test_x )
+pop = explainer(test_x)
+#shap.summary_plot(pop,test_x, feature_names = data.columns)
+
+# create a dependence scatter plot to show the effect of a single feature across the whole dataset
+shap.plots.scatter(pop[:,"free sulfur dioxide"], color=pop)
